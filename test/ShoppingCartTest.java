@@ -48,22 +48,22 @@ class ShoppingCartTest {
 	void getBalanceTest() throws ProductNotFoundException {
 		Product product1 = new Product("title1", 5);
 		Product product2 = new Product("title2", 7.25);
-		assertEquals(0.0, cart.getBalance());
+		assertEquals(0.0, cart.getBalance(), 1e-6);
 		cart.addItem(product1);
-		assertEquals(product1.getPrice(), cart.getBalance());
+		assertEquals(product1.getPrice(), cart.getBalance(), 1e-6);
 		cart.addItem(product2);
-		assertEquals(product1.getPrice() + product2.getPrice(), cart.getBalance());
+		assertEquals(product1.getPrice() + product2.getPrice(), cart.getBalance(), 1e-6);
 		cart.removeItem(product1);
-		assertEquals(product2.getPrice(), cart.getBalance());
+		assertEquals(product2.getPrice(), cart.getBalance(), 1e-6);
 		cart.removeItem(product2);
-		assertEquals(0.0, cart.getBalance());
+		assertEquals(0.0, cart.getBalance(), 1e-6);
 	}
 
 	@Test
 	void addItemTest() {
 		double previousBalance = cart.getBalance();
 		cart.addItem(new Product("title", 5.1));
-		assertEquals(cart.getBalance(), 5.1 + previousBalance, 0.00001);
+		assertEquals(cart.getBalance(), 5.1 + previousBalance, 1e-6);
 	}
 
 	@Test
@@ -79,6 +79,7 @@ class ShoppingCartTest {
 		while (!products.isEmpty()) {
 			try {
 				int cartSize = cart.getItemCount();
+				assertEquals(cart.getItemCount(), cartSize); // getItemCount() should not change if an item is not removed
 				cart.removeItem(products.remove(products.size() - 1));
 				assertTrue(cart.getItemCount() < cartSize);
 			} catch (ProductNotFoundException ex) {
@@ -138,6 +139,6 @@ class ShoppingCartTest {
 	public void newBalanceTest() {
 		double previousBalance = cart.getBalance();
 		cart.addItem(new Product("title", 5.1));
-		assertEquals(cart.getBalance(), 5.1 + previousBalance, 0.00001);
+		assertEquals(cart.getBalance(), 5.1 + previousBalance, 1e-6);
 	}
 }
