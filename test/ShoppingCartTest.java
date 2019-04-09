@@ -18,6 +18,26 @@ class ShoppingCartTest {
 
 	@Test
 	void emptyTest() {
+		final int count = 20;
+		Product[] products = new Product[count];
+		for (int i = 0; i < count; ++i) {
+			products[i] = new Product("title" + i, i);
+		}
+		// add items to cart, clear cart, then check if getItemCount() == 0
+		for (int max = 0; max <= count; ++max) {
+			for (int i = 0; i < max; ++i) {
+				cart.addItem(products[i]);
+			}
+			cart.empty();
+			assertEquals(cart.getItemCount(), 0);
+		}
+		// check if getItemCount() == 0 after multiple successive calls
+		assertEquals(cart.getItemCount(), 0);
+		assertEquals(cart.getItemCount(), 0);
+		cart.empty();
+		cart.empty();
+		assertEquals(cart.getItemCount(), 0);
+		assertEquals(cart.getItemCount(), 0);
 	}
 
 	@Test
