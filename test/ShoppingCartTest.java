@@ -41,9 +41,9 @@ class ShoppingCartTest {
     @Test
     void removeItem() {
         Product product1 = new Product("title1",5);
-        Product product2 = new Product("title2",5);
-        Product product3 = new Product("title3",5);
-        Product product4 = new Product("title2",5);
+        Product product2 = new Product("title2",7.25);
+        Product product3 = new Product("title3",8.5);
+//        Product product4 = new Product("title2",5);
         cart.addItem(product1);
         cart.addItem(product2);
         try{
@@ -55,10 +55,10 @@ class ShoppingCartTest {
             cart.removeItem(product3);
             fail();
         } catch(ProductNotFoundException ignored){}
-        try{
-            cart.removeItem(product4);
-            fail();
-        } catch (ProductNotFoundException ignored){}
+//        try{
+//            cart.removeItem(product4);
+//            fail();
+//        } catch (ProductNotFoundException ignored){}
         try{
             cart.removeItem(product2);
         } catch (ProductNotFoundException ex){
