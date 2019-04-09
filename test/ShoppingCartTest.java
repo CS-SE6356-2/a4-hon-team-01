@@ -53,11 +53,11 @@ class ShoppingCartTest {
 		try {
 			cart.removeItem(product1);
 		} catch(ProductNotFoundException ex){
-			fail();
+			fail("failed to remove product1 from the cart");
 		}
 		try {
 			cart.removeItem(product3);
-			fail();
+			fail("removed product3 from the cart, when it was never added to the cart");
 		} catch(ProductNotFoundException ignored){}
 //		try {
 //			cart.removeItem(product4);
@@ -66,11 +66,11 @@ class ShoppingCartTest {
 		try {
 			cart.removeItem(product2);
 		} catch (ProductNotFoundException ex){
-			fail();
+			fail("failed to remove product2 from the cart");
 		}
 		try {
 			cart.removeItem(product2);
-			fail();
+			fail("removed product1 from the cart, after it had already been removed");
 		} catch(ProductNotFoundException ignored){}
 
 	}
