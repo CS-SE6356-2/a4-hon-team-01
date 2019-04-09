@@ -18,7 +18,7 @@ class ShoppingCartTest {
 
 	@Test
 	void emptyTest() {
-		final int count = 20;
+		final int count = 20; // how many products to make for the test
 		Product[] products = new Product[count];
 		for (int i = 0; i < count; ++i) {
 			products[i] = new Product("title" + i, i);
@@ -42,8 +42,8 @@ class ShoppingCartTest {
 
 	@Test
 	void getBalanceTest() throws ProductNotFoundException {
-		Product product1 = new Product("title1",5);
-		Product product2 = new Product("title2",7.25);
+		Product product1 = new Product("title1", 5);
+		Product product2 = new Product("title2", 7.25);
 		assertEquals(0.0, cart.getBalance());
 		cart.addItem(product1);
 		assertEquals(product1.getPrice(), cart.getBalance());
@@ -58,8 +58,8 @@ class ShoppingCartTest {
 	@Test
 	void addItemTest() {
 		double previousBalance = cart.getBalance();
-		cart.addItem(new Product("title",5.1));
-		assertEquals(cart.getBalance(),5.1+previousBalance,0.00001);
+		cart.addItem(new Product("title", 5.1));
+		assertEquals(cart.getBalance(), 5.1 + previousBalance, 0.00001);
 	}
 
 	@Test
@@ -72,47 +72,47 @@ class ShoppingCartTest {
 		cart.addItem(product2);
 		try {
 			cart.removeItem(product1);
-		} catch(ProductNotFoundException ex){
+		} catch (ProductNotFoundException ex) {
 			fail("failed to remove product1 from the cart");
 		}
 		try {
 			cart.removeItem(product3);
 			fail("removed product3 from the cart, when it was never added to the cart");
-		} catch(ProductNotFoundException ignored){}
+		} catch (ProductNotFoundException ignored) { }
 //		try {
 //			cart.removeItem(product4);
 //			fail();
 //		} catch (ProductNotFoundException ignored){}
 		try {
 			cart.removeItem(product2);
-		} catch (ProductNotFoundException ex){
+		} catch (ProductNotFoundException ex) {
 			fail("failed to remove product2 from the cart");
 		}
 		try {
 			cart.removeItem(product2);
 			fail("removed product1 from the cart, after it had already been removed");
-		} catch(ProductNotFoundException ignored){}
+		} catch (ProductNotFoundException ignored) { }
 
 	}
 
 	@Test
 	void getItemCountTest() {
-		assertEquals(cart.getItemCount(),0);
-		cart.addItem(new Product("title",5));
-		assertEquals(cart.getItemCount(),1);
+		assertEquals(cart.getItemCount(), 0);
+		cart.addItem(new Product("title", 5));
+		assertEquals(cart.getItemCount(), 1);
 	}
 	
 	@Test
 	public void newItemAmountTest(){
-		assertEquals(cart.getItemCount(),0);
-		cart.addItem(new Product("title",5));
-		assertEquals(cart.getItemCount(),1);
+		assertEquals(cart.getItemCount(), 0);
+		cart.addItem(new Product("title", 5));
+		assertEquals(cart.getItemCount(), 1);
 	}
 
 	@Test
 	public void newBalanceTest() {
 		double previousBalance = cart.getBalance();
-		cart.addItem(new Product("title",5.1));
-		assertEquals(cart.getBalance(),5.1+previousBalance,0.00001);
+		cart.addItem(new Product("title", 5.1));
+		assertEquals(cart.getBalance(), 5.1 + previousBalance, 0.00001);
 	}
 }
