@@ -4,6 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 class ShoppingCartTest {
 	private ShoppingCart cart;
 
@@ -64,6 +68,27 @@ class ShoppingCartTest {
 
 	@Test
 	void removeItemTest() {
+		final int count = 20; // how many products to make for the test
+		List<Product> products = new ArrayList<>(count);
+		for (int i = 0; i < count; ++i) {
+			products.add(new Product("title" + i, i));
+			cart.addItem(products.get(i));
+		}
+		// remove items from the cart in a random order, checking that getItemCount() decreases each time
+		Collections.shuffle(products);
+		while (!products.isEmpty()) {
+			try {
+				int cartSize = cart.getItemCount();
+				cart.removeItem(products.remove(products.size() - 1));
+				assertTrue(cart.getItemCount() < cartSize);
+			} catch (ProductNotFoundException ex) {
+				fail("failed to remove a product from the cart");
+			}
+		}
+	}
+
+	@Test
+	void productNotFoundExceptionTest() {
 		Product product1 = new Product("title1",5);
 		Product product2 = new Product("title2",7.25);
 		Product product3 = new Product("title3",8.5);
