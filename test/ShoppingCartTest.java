@@ -20,6 +20,7 @@ class ShoppingCartTest {
 	void tearDown() {
 	}
 
+	// after empty() is called, getItemCount() should return 0
 	@Test
 	void emptyTest() {
 		final int count = 20; // how many products to make for the test
@@ -44,6 +45,7 @@ class ShoppingCartTest {
 		assertEquals(cart.getItemCount(), 0);
 	}
 
+	// after a new product is added/removed, the return value of getBalance() should increase/decrease by the product's weight
 	@Test
 	void getBalanceTest() throws ProductNotFoundException {
 		Product product1 = new Product("title1", 5);
@@ -59,6 +61,7 @@ class ShoppingCartTest {
 		assertEquals(0.0, cart.getBalance(), 1e-6);
 	}
 
+	// after a product is added, the return value of getBalance() should increase by the product's weight
 	@Test
 	void addItemTest() {
 		double previousBalance = cart.getBalance();
@@ -66,6 +69,7 @@ class ShoppingCartTest {
 		assertEquals(cart.getBalance(), 5.1 + previousBalance, 1e-6);
 	}
 
+	// after a product is successfully removed, the return value of getItemCount() should decrease
 	@Test
 	void removeItemTest() {
 		final int count = 20; // how many products to make for the test
@@ -88,11 +92,12 @@ class ShoppingCartTest {
 		}
 	}
 
+	// if a product not in the cart is removed, a ProductNotFoundException should be thrown
 	@Test
 	void productNotFoundExceptionTest() {
-		Product product1 = new Product("title1",5);
-		Product product2 = new Product("title2",7.25);
-		Product product3 = new Product("title3",8.5);
+		Product product1 = new Product("title1", 5);
+		Product product2 = new Product("title2", 7.25);
+		Product product3 = new Product("title3", 8.5);
 //		Product product4 = new Product("title2",5);
 		cart.addItem(product1);
 		cart.addItem(product2);
@@ -121,13 +126,16 @@ class ShoppingCartTest {
 
 	}
 
+	// after the cart is created, getItemCount() should return 0
+	// once products are added to the cart, getItemCount() should not return 0
 	@Test
 	void getItemCountTest() {
 		assertEquals(cart.getItemCount(), 0);
 		cart.addItem(new Product("title", 5));
 		assertEquals(cart.getItemCount(), 1);
 	}
-	
+
+	// after a product is added, the return value of getItemCount() should increase
 	@Test
 	public void newItemAmountTest(){
 		assertEquals(cart.getItemCount(), 0);
@@ -135,6 +143,7 @@ class ShoppingCartTest {
 		assertEquals(cart.getItemCount(), 1);
 	}
 
+	// after a new product is added, the return value of getBalance() should increase by the product's weight
 	@Test
 	public void newBalanceTest() {
 		double previousBalance = cart.getBalance();
